@@ -15,11 +15,9 @@ class AddOrDetailScreen extends StatefulWidget {
 
 class _AddOrDetailScreenState extends State<AddOrDetailScreen> {
   Note _note = Note(
-    id: null,
+    id: '',
     title: '',
     note: '',
-    updatedAt: null,
-    createdAt: null,
   );
 
   bool _init = true;
@@ -29,7 +27,9 @@ class _AddOrDetailScreenState extends State<AddOrDetailScreen> {
 
   void submitNote() async {
     // dijalankan dan onSave di jalankan
-    _formKey.currentState.save();
+    if (_formKey.currentState != null) {
+      _formKey.currentState!.save();
+    }
 
     //set loading true
     setState(() {
@@ -78,7 +78,7 @@ class _AddOrDetailScreenState extends State<AddOrDetailScreen> {
   void didChangeDependencies() {
     // mencari berdasarkan id
     if (_init) {
-      String id = ModalRoute.of(context).settings.arguments as String;
+      String? id = ModalRoute.of(context)!.settings.arguments as String?;
       if (id != null) _note = Provider.of<Notes>(context).getNote(id);
       _init = false;
     }
@@ -152,7 +152,7 @@ class _AddOrDetailScreenState extends State<AddOrDetailScreen> {
             Positioned(
               bottom: 10,
               right: 10,
-              child: Text('Terakhir diubah ${_convertDate(_note.updatedAt)}'),
+              child: Text('Terakhir diubah ${_convertDate(_note.updatedAt!)}'),
             ),
         ],
       ),

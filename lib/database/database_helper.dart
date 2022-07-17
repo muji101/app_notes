@@ -62,6 +62,8 @@ class DatabaseHelper {
         Note.fromDb(data),
       );
     });
+
+    return listNote;
   }
 
   Future<void> insterAllNote(List<Note> listNote) async {
@@ -92,7 +94,7 @@ class DatabaseHelper {
   }
 
   Future<void> toggleIsPinned(
-      String id, bool isPinned, DateTime updatedAt) async {
+      String? id, bool isPinned, DateTime updatedAt) async {
     final db = await DatabaseHelper.init();
 
     await db.update(
@@ -106,7 +108,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> deleteNote(String id) async {
+  Future<void> deleteNote(String? id) async {
     final db = await DatabaseHelper.init();
     await db.delete(
       TABLE_NOTES,
